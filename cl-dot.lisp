@@ -263,6 +263,7 @@ FORMAT is Postscript."
                   (t
                    (print-key-value stream name value *graph-attributes*)
                    (format t ";~%"))))
+      (terpri)
       (setf node-defaults (nreverse node-defaults)
             edge-defaults (nreverse edge-defaults))
       (loop for (name value) in node-defaults do
@@ -304,7 +305,7 @@ FORMAT is Postscript."
                   (textify value :alignment alignment)))
                (t
                 (textify value)))))
-      (format stream "~a=~a" (case key
+      (format stream "  ~a=~a" (case key
                                (:url key)
                                (t    (string-downcase key)))
               (etypecase value-type
