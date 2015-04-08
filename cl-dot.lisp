@@ -182,7 +182,10 @@ FORMAT is Postscript."
         (nodes nil)
         (edges nil)
         (*id* 0))
-    (labels ((add-edge (source target attributes &optional source-port target-port)
+    (com.informatimago.common-lisp.cesarum.utility:tracing-labels
+
+;    (labels
+        ((add-edge (source target attributes &optional source-port target-port)
                (let ((edge (make-instance 'edge
                                           :attributes attributes
                                           :source source
@@ -201,9 +204,12 @@ FORMAT is Postscript."
                (when (typep object 'attributed)
                  (attributes-of object)))
              (handle-object (object)
+               ;(princ "handle object: ") (princ object) (princ "; 1th of get-node: ")(princ (nth-value 1 (get-node object)))
                (when (typep object 'attributed)
+                 ;(princ "; attributed.")(terpri)
                  (return-from handle-object
                    (handle-object (object-of object))))
+               ;(terpri)
                ;; If object has been already been visited, skip
                (unless (nth-value 1 (get-node object))
                  (let ((node (graph-object-node graph object))
