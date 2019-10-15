@@ -63,17 +63,7 @@ with the software or the use or other dealings in the software.}
 @end ifnothtml
 
 @macro keyword{kw}
-@ifnothtml
-@ifnotinfo
-@code{\kw\}@c
-@end ifnotinfo
-@end ifnothtml
-@html
-@code{<span class="keyword">\kw\</span>}@c
-@end html
-@ifinfo
-\kw\@c
-@end ifinfo
+@inlinefmtifelse{html, @code{<span class="keyword">\kw\</span>}, @inlinefmtifelse{info, \kw\, @code{\kw\}}}
 @end macro
 
 @macro initarg{initarg}
@@ -81,29 +71,11 @@ with the software or the use or other dealings in the software.}
 @end macro
 
 @macro coderef{ref}
-@ifnottex
-@ifnotinfo
-@code{@ref{\ref\}}@c
-@end ifnotinfo
-@end ifnottex
-@iftex @code{\ref\}@c
-@end iftex
-@ifinfo
-\ref\@c
-@end ifinfo
+@inlinefmtifelse{tex, @code{\ref\}, @inlinefmtifelse{info, \ref\, @code{@ref{\ref\}}}}
 @end macro
 
 @macro pcoderef{package,ref}
-@ifnottex
-@ifnotinfo
-@code{@ref{\ref\,\package\:\ref\}}@c
-@end ifnotinfo
-@end ifnottex
-@iftex @code{\package\:\ref\}@c
-@end iftex
-@ifinfo
-\package\:\ref\@c
-@end ifinfo
+@inlinefmtifelse{tex, @code{\package\:\ref\}, @inlinefmtifelse{info, \package\:\ref\, @code{@ref{\ref\,\package\:\ref\}}}}
 @end macro
 
 @macro cliki{project}
@@ -120,14 +92,8 @@ with the software or the use or other dealings in the software.}
 
 CL-DOT is a small package for easily generating Dot (a program in the
 @url{http://www.graphviz.org/,GraphViz} suite) output from arbitrary
-Lisp data.  It works with the following Common Lisp implementations:
-
-@itemize @bullet
-@item @url{http://www.franz.com/products/allegrocl/,Allegro CL@registeredsymbol{}}
-@item @url{http://clisp.cons.org/,@acronym{GNU} CLISP}
-@item @url{http://www.lispworks.com/,LispWorks}
-@item @url{http://www.sbcl.org/,@acronym{SBCL}}
-@end itemize
+Lisp data.  It should work with any Common Lisp implementation supported
+by @url{https://www.common-lisp.net/project/asdf/,@acronym{UIOP}}.
 
 Original author is @url{http://jsnell.iki.fi/,Juho Snellman}, current
 maintainer is @url{http://www.foldr.org/~michaelw/,Michael Weber}.  The
@@ -215,11 +181,12 @@ The source code is available via @url{http://github.com/,GitHub}:
 
 @section External Dependencies
 
-CL-DOT has no dependencies on other
-@url{http://weitz.de/packages.html,systems}, but it requires the
-@url{http://www.graphviz.org/,GraphViz} suite to be installed for
-rendering, and @url{http://www.gnu.org/software/texinfo/,GNU Texinfo}
-for preparing this documentation.
+The only @url{http://weitz.de/packages.html,systems} CL-DOT depends on
+is @url{https://www.common-lisp.net/project/asdf/,@acronym{UIOP}}. In
+addition, it requires the @url{http://www.graphviz.org/,GraphViz} suite
+to be installed for rendering, and
+@url{http://www.gnu.org/software/texinfo/,GNU Texinfo} for preparing
+this documentation.
 
 @c -----------------------------------------------------------------
 @node Usage
@@ -653,8 +620,21 @@ are horizontally centered in Dot output.  However, if the value of
 @var{shape} can be one of the following keywords:
 
 @lisp
-:record :plaintext :ellipse :circle :egg :triangle :box
-:diamond :trapezium :parallelogram :house :hexagon :octagon
+:box :polygon :ellipse :oval
+:circle :point :egg :triangle
+:plaintext :plain :diamond :trapezium
+:parallelogram :house :pentagon :hexagon
+:septagon :octagon :doublecircle :doubleoctagon
+:tripleoctagon :invtriangle :invtrapezium :infhouse
+:Mdiamond :Msquare :Mcircle :rect
+:rectangle :square :star :none
+:underline :cylinder :note :tab
+:folder :box3d :component :promoter
+:cds :terminator :utr :primersite
+:restrictionsite :fivepoverhang :threepoverhang :noverhang
+:assembly :signature :insulator :ribosite
+:rnastab :proteasesite :proteinstab :rpromoter
+:rarrow :larrow :lpromoter :record
 @end lisp
 
 @item :style (:filled :solid :dashed :dotted :bold :invis)
